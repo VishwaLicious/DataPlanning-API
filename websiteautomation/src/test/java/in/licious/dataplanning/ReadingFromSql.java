@@ -1,13 +1,20 @@
 package in.licious.dataplanning;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.util.Date;
 
+import org.apache.poi.hssf.extractor.ExcelExtractor;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.testng.annotations.DataProvider;
+
 import in.licious.util.ReadData;
 
-public class SqlDbQuery {
+public class ReadingFromSql {
 	public static String data_DB() throws Throwable
     {
         String productId=null;
@@ -43,24 +50,12 @@ public class SqlDbQuery {
                 {
                 productId=rd.readDataFromExcel(excelFilePath,"Sheet1",i,0);
                 System.out.println(productId);
-                	for(int j=1;j<=33;j++)
+                	for(int j=1;j<=1;j++)
                 	{
                 		hubId=rd.readDataFromExcel(excelFilePath,"Sheet1",j, 2);
                 		int hubNumber=Integer.parseInt(hubId);
                 		System.out.println(hubNumber);
-            		String query="select  sum(x1) as y from" 
-            							+ "(select sum(quantity) as x1 from orders o, order_items oi where o.order_id=oi.order_id and o.status!='rejected' "
-                						+ "and product_id='"+productId+"'  and hub_id='"+hubNumber+"' "
-                						+ "and date(o.order_processing_date)='"+date+"' union all "
-                						+ "select sum(quantity) as x1 from merchant_orders om, merchant_orderitems oim where om.order_id=oim.order_id and om.status!='rejected'"
-                						+ "and product_id='"+productId+"' and hub_id='"+hubNumber+"' "
-                						+ "and date(om.order_processing_date)='"+date+"') as total1 ;";
-                		
-            		String s1="()";
-                		/*String query="select  sum(x1) as y from" + 
-                				"(select sum(quantity) as x1 from orders o, order_items oi where o.order_id=oi.order_id and o.status!='rejected' and product_id='pr_57234c427648b'  and hub_id='4' and date(o.order_processing_date) =" + 
-                				"'2018-10-26' union all" + 
-                				"(select sum(quantity) as x1 from merchant_orders om, merchant_orderitems oim where om.order_id=oim.order_id and om.status!='rejected'  and product_id='pr_57234c427648b' and hub_id='4' and date(om.order_processing_date) ='2018-10-26')) as total1 ;";*/
+                		String query="select sum(quantity) from orders o, order_items oi where o.order_id=oi.order_id and o.status!='rejected'  and product_id='"+productId+"' and hub_id='"+hubNumber+"' and date(o.order_processing_date)='"+date+"';";
                 		System.out.println(query);
                 		res1 = con.createStatement().executeQuery(query);
                 		while (res1.next())
@@ -98,7 +93,7 @@ public static void main(String args[]) throws Throwable {
 	 System.out.println(date1.toString());
 
 }
-	
+
 
 }
     

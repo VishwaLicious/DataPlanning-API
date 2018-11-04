@@ -7,15 +7,15 @@ import com.google.gson.JsonElement;
 public class Compare_DB {
 @Test
 public void compareData() throws Throwable
-{
+{ 
     Json1 j=new Json1();
     SQL_DB s=new SQL_DB();
     JsonElement js=j.jsonData();
     String js1=js.toString();
     
-    System.out.println(js1);
+    //System.out.println(js1);
     String db=s.data_DB();
-    System.out.println(db);
+    //System.out.println(db);
     
     
 
