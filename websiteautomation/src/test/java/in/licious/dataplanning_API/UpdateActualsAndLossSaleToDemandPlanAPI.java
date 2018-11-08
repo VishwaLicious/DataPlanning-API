@@ -27,7 +27,7 @@ public class UpdateActualsAndLossSaleToDemandPlanAPI {
 		//requestParams.put("date", "2018-10-09");
 		//requestParams.put("date", "2018-10-10");
 		
-		// Add a header stating the Request body is a JSON
+		// Add a header stating the Request body is a JSON 	123
 		request.header("Content-Type", "application/json");
 		// Add a header stating the Request body is a JSON
 		request.header("token", "e6e061838856bf47e1de730719fb2609");
